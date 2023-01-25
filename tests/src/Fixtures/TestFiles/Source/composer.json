@@ -1,0 +1,6 @@
+{
+	"name": "cpsit/migrator-test",
+	"require-dev": {
+		"phpunit/phpunit": "^9.5"
+	}
+}
