@@ -44,9 +44,9 @@ vendor/bin/migrator [options] <base-directory> <source-directory> <target-direct
 
 Available options:
 
-* **`--dry-run`** does not perform migrations, but only calculated and shows
-  diff between the code bases
-* **`--verbose`** shows the calculated diff (implicitly enabled with `--dry-run`)
+* `--dry-run` does not perform migrations, but only calculates and shows
+  diff between code bases
+* `--verbose` shows the calculated diff (implicitly enabled with `--dry-run`)
 
 ### PHP
 
