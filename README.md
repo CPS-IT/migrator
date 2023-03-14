@@ -52,13 +52,11 @@ Available options:
 
 ```php
 use CPSIT\Migrator\Diff;
-use CPSIT\Migrator\Resource;
 use CPSIT\Migrator\Migrator;
-use GitElephant;
+use CPSIT\Migrator\Resource;
 
-// The base directory contains all files
-// that should be migrated
-$baseDirectory = '/path/to/base/directory';
+// Base contains all files that should be migrated
+$base = new Resource\Collector\DirectoryCollector('/path/to/base/directory');
 
 // Source and target define the code bases
 // that are used to generate a diff
@@ -74,7 +72,7 @@ $differ = new Diff\Differ\GitDiffer();
 $migrator = new Migrator($differ, $performMigrations);
 
 // Migrate files in your base directory
-$diffResult = $migrator->migrate($source, $target, $baseDirectory);
+$diffResult = $migrator->migrate($source, $target, $base);
 
 // Print diff
 foreach ($diffResult->getDiffObjects() as $diffObject) {
