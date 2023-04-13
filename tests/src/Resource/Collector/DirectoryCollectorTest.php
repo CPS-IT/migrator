@@ -35,6 +35,7 @@ use function array_values;
 use function dirname;
 use function iterator_to_array;
 use function scandir;
+use function sort;
 
 /**
  * DirectoryCollectorTest.
@@ -62,6 +63,8 @@ final class DirectoryCollectorTest extends Framework\TestCase
         self::assertNotFalse($files);
 
         $this->expected = array_values(array_diff($files, ['..', '.']));
+
+        sort($this->expected);
     }
 
     #[Framework\Attributes\Test]
@@ -75,7 +78,11 @@ final class DirectoryCollectorTest extends Framework\TestCase
     #[Framework\Attributes\Test]
     public function collectReturnsCollection(): void
     {
-        self::assertSame($this->expected, array_keys($this->subject->collect()));
+        $actual = array_keys($this->subject->collect());
+
+        sort($actual);
+
+        self::assertSame($this->expected, $actual);
     }
 
     #[Framework\Attributes\Test]
@@ -90,7 +97,11 @@ final class DirectoryCollectorTest extends Framework\TestCase
             $this->expected,
         );
 
-        self::assertEquals($fileObjects, array_values(iterator_to_array($this->subject->collectFiles())));
+        $actual = array_values(iterator_to_array($this->subject->collectFiles()));
+
+        sort($actual);
+
+        self::assertEquals($fileObjects, $actual);
     }
 
     #[Framework\Attributes\Test]
@@ -102,6 +113,10 @@ final class DirectoryCollectorTest extends Framework\TestCase
     #[Framework\Attributes\Test]
     public function subjectIsIterable(): void
     {
-        self::assertSame($this->expected, array_keys(iterator_to_array($this->subject)));
+        $actual = array_keys(iterator_to_array($this->subject));
+
+        sort($actual);
+
+        self::assertSame($this->expected, $actual);
     }
 }
