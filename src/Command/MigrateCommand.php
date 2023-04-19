@@ -25,9 +25,9 @@ namespace CPSIT\Migrator\Command;
 
 use CPSIT\Migrator\Diff;
 use CPSIT\Migrator\Exception;
+use CPSIT\Migrator\Formatter;
 use CPSIT\Migrator\Migrator;
 use CPSIT\Migrator\Resource;
-use GitElephant\Objects;
 use Symfony\Component\Console;
 use Symfony\Component\Filesystem;
 
@@ -46,6 +46,7 @@ final class MigrateCommand extends Console\Command\Command
 {
     private readonly Filesystem\Filesystem $filesystem;
     private Console\Style\SymfonyStyle $io;
+    private Formatter\Formatter $formatter;
 
     public function __construct(
         private readonly Migrator $migrator = new Migrator(),
@@ -84,6 +85,7 @@ final class MigrateCommand extends Console\Command\Command
     protected function initialize(Console\Input\InputInterface $input, Console\Output\OutputInterface $output): void
     {
         $this->io = new Console\Style\SymfonyStyle($input, $output);
+        $this->formatter = new Formatter\CliFormatter();
     }
 
     /**
@@ -138,81 +140,14 @@ final class MigrateCommand extends Console\Command\Command
 
     private function decorateDiffResult(Diff\DiffResult $diffResult): void
     {
-        $diffObjects = $diffResult->getDiffObjects();
+        $formattedDiffResult = $this->formatter->format($diffResult);
 
-        // Early return if no files changed
-        if ([] === $diffObjects) {
+        if (null === $formattedDiffResult) {
             return;
         }
 
         $this->io->section('Changed files');
-
-        foreach ($diffObjects as $diffObject) {
-            $this->decorateDiffObjectHeader($diffObject);
-
-            foreach ($diffObject->getChunks() as $chunks) {
-                $this->io->writeln('<fg=cyan>'.$chunks->getHeaderLine().'</>');
-
-                /** @var Objects\Diff\DiffChunkLine $chunk */
-                foreach ($chunks as $chunk) {
-                    switch ($chunk::class) {
-                        case Objects\Diff\DiffChunkLineUnchanged::class:
-                            $this->io->writeln(' '.$chunk->getContent());
-                            break;
-
-                        case Objects\Diff\DiffChunkLineAdded::class:
-                            $this->io->writeln('<fg=green>+'.$chunk->getContent().'</>');
-                            break;
-
-                        case Objects\Diff\DiffChunkLineDeleted::class:
-                            $this->io->writeln('<fg=red>-'.$chunk->getContent().'</>');
-                            break;
-                    }
-                }
-            }
-
-            $this->io->newLine();
-        }
-    }
-
-    private function decorateDiffObjectHeader(Diff\DiffObject $diffObject): void
-    {
-        $srcPath = '<options=bold>--- a/'.$diffObject->getOriginalPath().'</>';
-        $destPath = '<options=bold>+++ b/'.$diffObject->getDestinationPath().'</>';
-
-        $this->io->writeln(
-            match ($diffObject->getMode()) {
-                Diff\DiffMode::Added => [
-                    '<options=bold>--- /dev/null</>',
-                    $destPath,
-                    '<fg=black;bg=green> ADDED </>',
-                ],
-                Diff\DiffMode::Copied => [
-                    $srcPath,
-                    $destPath,
-                    '<fg=black;bg=gray> COPIED </>',
-                ],
-                Diff\DiffMode::Deleted => [
-                    $srcPath,
-                    '<options=bold>+++ /dev/null</>',
-                    '<fg=black;bg=red> DELETED </>',
-                ],
-                Diff\DiffMode::Ignored => [
-                    $srcPath,
-                    '<options=bold>+++ /dev/null</>',
-                    '<fg=black;bg=gray> IGNORED </>',
-                ],
-                Diff\DiffMode::Renamed => [
-                    $srcPath,
-                    $destPath,
-                    '<fg=black;bg=yellow> RENAMED </>',
-                ],
-                default => [
-                    $srcPath,
-                    $destPath,
-                ],
-            },
-        );
+        $this->io->writeln($formattedDiffResult);
     }
 
     private function writePatchFile(string $patch): void
