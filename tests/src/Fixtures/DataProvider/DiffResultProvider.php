@@ -26,7 +26,7 @@ namespace CPSIT\Migrator\Tests\Fixtures\DataProvider;
 use CPSIT\Migrator\Diff;
 use CPSIT\Migrator\Resource;
 
-use function array_rand;
+use function count;
 
 /**
  * DiffResultProvider.
@@ -87,7 +87,7 @@ final class DiffResultProvider
 
         for ($i = 0; $i < $numberOfDiffObjects; ++$i) {
             $diffObjects[] = new Diff\DiffObject(
-                $diffModes[array_rand($diffModes)],
+                $diffModes[$i % count($diffModes)],
                 '/foo/'.$i,
                 '/baz/'.$i,
                 [],
