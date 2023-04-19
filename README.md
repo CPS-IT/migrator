@@ -123,8 +123,9 @@ following implementations are currently available:
 ### Formatter
 
 Formatters can be used to properly display a calculated
-[`Diff\DiffResult`](src/Diff/DiffResult.php). The following implementations are
-currently available:
+[`Diff\DiffResult`](src/Diff/DiffResult.php). Each formatter implements
+[`Formatter\Formatter`](src/Formatter/Formatter.php). The following implementations
+are currently available:
 
 - [`CliFormatter`](src/Formatter/CliFormatter.php) is used on command line. It
   displays the calculated diff with ANSI colors, targeting Symfony's console output.
