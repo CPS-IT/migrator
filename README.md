@@ -77,7 +77,7 @@ $formatter = new Formatter\TextFormatter();
 $diffResult = $migrator->migrate($source, $target, $base);
 
 // Format diff
-$formatter->format($diffResult);
+echo $formatter->format($diffResult);
 ```
 
 ## 🎢 Architecture
