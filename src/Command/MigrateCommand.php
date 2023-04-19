@@ -142,12 +142,10 @@ final class MigrateCommand extends Console\Command\Command
     {
         $formattedDiffResult = $this->formatter->format($diffResult);
 
-        if (null === $formattedDiffResult) {
-            return;
+        if (null !== $formattedDiffResult) {
+            $this->io->section('Changed files');
+            $this->io->writeln($formattedDiffResult);
         }
-
-        $this->io->section('Changed files');
-        $this->io->writeln($formattedDiffResult);
     }
 
     private function writePatchFile(string $patch): void
@@ -169,9 +167,11 @@ final class MigrateCommand extends Console\Command\Command
 
         $cwd = getcwd();
 
+        // @codeCoverageIgnoreStart
         if (false === $cwd) {
             throw new Console\Exception\RuntimeException('Unable to determine current working directory.', 1674654976);
         }
+        // @codeCoverageIgnoreEnd
 
         return Filesystem\Path::makeAbsolute($resource, $cwd);
     }
