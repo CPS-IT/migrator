@@ -37,7 +37,7 @@ use function implode;
  */
 final class TextFormatter implements Formatter
 {
-    private Decorator\DiffDecorator $decorator;
+    private readonly Decorator\DiffDecorator $decorator;
 
     public function __construct()
     {
