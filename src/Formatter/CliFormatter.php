@@ -27,7 +27,10 @@ use CPSIT\Migrator\Diff;
 use Generator;
 use GitElephant\Objects;
 
+use function array_filter;
+use function http_build_query;
 use function implode;
+use function sprintf;
 
 /**
  * CliFormatter.
@@ -37,6 +40,13 @@ use function implode;
  */
 final class CliFormatter implements Formatter
 {
+    private readonly Decorator\DiffDecorator $decorator;
+
+    public function __construct()
+    {
+        $this->decorator = new Decorator\DiffDecorator();
+    }
+
     public function format(Diff\DiffResult $diffResult): ?string
     {
         $diffObjects = $diffResult->getDiffObjects();
@@ -65,7 +75,7 @@ final class CliFormatter implements Formatter
             yield from $this->formatDiffObjectHeader($diffObject);
 
             foreach ($diffObject->getChunks() as $chunks) {
-                yield '<fg=cyan>'.$chunks->getHeaderLine().'</>';
+                yield $this->decorateText($chunks->getHeaderLine(), foregroundColor: 'cyan');
                 yield from $this->formatDiffChunkLines($chunks->getLines());
             }
 
@@ -78,38 +88,38 @@ final class CliFormatter implements Formatter
      */
     private function formatDiffObjectHeader(Diff\DiffObject $diffObject): Generator
     {
-        $srcPath = '<options=bold>--- a/'.$diffObject->getOriginalPath().'</>';
-        $destPath = '<options=bold>+++ b/'.$diffObject->getDestinationPath().'</>';
+        $srcPath = $this->decorator->decorateOriginalPath($diffObject->getOriginalPath());
+        $destPath = $this->decorator->decorateDestinationPath($diffObject->getDestinationPath());
 
         yield from match ($diffObject->getMode()) {
             Diff\DiffMode::Added => [
-                '<options=bold>--- /dev/null</>',
-                $destPath,
-                '<fg=black;bg=green> ADDED </>',
+                $this->decorateText($this->decorator->decorateOriginalPath(null), options: ['bold']),
+                $this->decorateText($destPath, options: ['bold']),
+                $this->decorateText(' ADDED ', 'green'),
             ],
             Diff\DiffMode::Copied => [
-                $srcPath,
-                $destPath,
-                '<fg=black;bg=gray> COPIED </>',
+                $this->decorateText($srcPath, options: ['bold']),
+                $this->decorateText($destPath, options: ['bold']),
+                $this->decorateText(' COPIED ', 'gray'),
             ],
             Diff\DiffMode::Deleted => [
-                $srcPath,
-                '<options=bold>+++ /dev/null</>',
-                '<fg=black;bg=red> DELETED </>',
+                $this->decorateText($srcPath, options: ['bold']),
+                $this->decorateText($this->decorator->decorateDestinationPath(null), options: ['bold']),
+                $this->decorateText(' DELETED ', 'red'),
             ],
             Diff\DiffMode::Ignored => [
-                $srcPath,
-                '<options=bold>+++ /dev/null</>',
-                '<fg=black;bg=gray> IGNORED </>',
+                $this->decorateText($srcPath, options: ['bold']),
+                $this->decorateText($this->decorator->decorateDestinationPath(null), options: ['bold']),
+                $this->decorateText(' IGNORED ', 'gray'),
             ],
             Diff\DiffMode::Renamed => [
-                $srcPath,
-                $destPath,
-                '<fg=black;bg=yellow> RENAMED </>',
+                $this->decorateText($srcPath, options: ['bold']),
+                $this->decorateText($destPath, options: ['bold']),
+                $this->decorateText(' RENAMED ', 'yellow'),
             ],
             default => [
-                $srcPath,
-                $destPath,
+                $this->decorateText($srcPath, options: ['bold']),
+                $this->decorateText($destPath, options: ['bold']),
             ],
         };
     }
@@ -122,19 +132,46 @@ final class CliFormatter implements Formatter
     private function formatDiffChunkLines(array $chunkLines): Generator
     {
         foreach ($chunkLines as $chunkLine) {
+            $decoratedChunkLine = $this->decorator->decorateChunkLine($chunkLine);
+
+            if (null === $decoratedChunkLine) {
+                continue;
+            }
+
             switch ($chunkLine::class) {
                 case Objects\Diff\DiffChunkLineUnchanged::class:
-                    yield ' '.$chunkLine->getContent();
+                    yield $decoratedChunkLine;
                     break;
 
                 case Objects\Diff\DiffChunkLineAdded::class:
-                    yield '<fg=green>+'.$chunkLine->getContent().'</>';
+                    yield $this->decorateText($decoratedChunkLine, foregroundColor: 'green');
                     break;
 
                 case Objects\Diff\DiffChunkLineDeleted::class:
-                    yield '<fg=red>-'.$chunkLine->getContent().'</>';
+                    yield $this->decorateText($decoratedChunkLine, foregroundColor: 'red');
                     break;
             }
         }
+    }
+
+    /**
+     * @param list<string> $options
+     */
+    private function decorateText(
+        string $text,
+        string $backgroundColor = null,
+        string $foregroundColor = 'black',
+        array $options = [],
+    ): string {
+        $tagAttributes = array_filter(
+            [
+                'bg' => $backgroundColor,
+                'fg' => $foregroundColor,
+                'options' => implode(',', $options),
+            ],
+        );
+        $tag = http_build_query($tagAttributes, '', ';');
+
+        return sprintf('<%s>%s</>', $tag, $text);
     }
 }
