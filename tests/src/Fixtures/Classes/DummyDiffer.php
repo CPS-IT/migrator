@@ -26,6 +26,7 @@ namespace CPSIT\Migrator\Tests\Fixtures\Classes;
 use CPSIT\Migrator\Diff;
 use CPSIT\Migrator\Exception;
 use CPSIT\Migrator\Resource;
+use CPSIT\Migrator\Tests;
 
 /**
  * DummyDiffer.
@@ -52,7 +53,7 @@ final class DummyDiffer implements Diff\Differ\Differ
             return $this->expectedResult;
         }
 
-        return new Diff\DiffResult([], 'dummy', Diff\Outcome::successful());
+        return Tests\Fixtures\DataProvider\DiffResultProvider::createSuccessful();
     }
 
     public function applyDiff(

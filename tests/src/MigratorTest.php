@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace CPSIT\Migrator\Tests;
 
 use CPSIT\Migrator as Src;
+use CPSIT\Migrator\Tests;
 use PHPUnit\Framework;
 
 /**
@@ -44,7 +45,7 @@ final class MigratorTest extends Framework\TestCase
     protected function setUp(): void
     {
         $this->differ = new Fixtures\Classes\DummyDiffer();
-        $this->diffResult = new Src\Diff\DiffResult([], 'foo', Src\Diff\Outcome::successful());
+        $this->diffResult = Tests\Fixtures\DataProvider\DiffResultProvider::createSuccessful();
         $this->source = new Src\Resource\Collector\ArrayCollector([]);
         $this->target = new Src\Resource\Collector\ArrayCollector([]);
         $this->base = new Src\Resource\Collector\DirectoryCollector(__DIR__);

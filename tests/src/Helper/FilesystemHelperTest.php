@@ -24,8 +24,7 @@ declare(strict_types=1);
 namespace CPSIT\Migrator\Tests\Helper;
 
 use CPSIT\Migrator as Src;
-use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework;
 
 /**
  * FilesystemHelperTest.
@@ -33,9 +32,9 @@ use PHPUnit\Framework\TestCase;
  * @author Elias Häußler <e.haeussler@familie-redlich.de>
  * @license GPL-3.0-or-later
  */
-final class FilesystemHelperTest extends TestCase
+final class FilesystemHelperTest extends Framework\TestCase
 {
-    #[Test]
+    #[Framework\Attributes\Test]
     public function getNewTemporaryDirectoryReturnsUniqueTemporaryDirectory(): void
     {
         $tempDir = sys_get_temp_dir();

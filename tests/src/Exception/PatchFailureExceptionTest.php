@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace CPSIT\Migrator\Tests\Exception;
 
 use CPSIT\Migrator as Src;
+use CPSIT\Migrator\Tests;
 use PHPUnit\Framework;
 
 /**
@@ -37,7 +38,7 @@ final class PatchFailureExceptionTest extends Framework\TestCase
     #[Framework\Attributes\Test]
     public function createReturnsExceptionForInvalidType(): void
     {
-        $diffResult = new Src\Diff\DiffResult([], 'foo', Src\Diff\Outcome::failed('error'));
+        $diffResult = Tests\Fixtures\DataProvider\DiffResultProvider::createFailed();
 
         $actual = Src\Exception\PatchFailureException::forConflictedDiff($diffResult);
 
@@ -49,7 +50,7 @@ final class PatchFailureExceptionTest extends Framework\TestCase
     #[Framework\Attributes\Test]
     public function createModifiesDiffResultIfGivenOutcomeIsSuccessful(): void
     {
-        $diffResult = new Src\Diff\DiffResult([], 'foo', Src\Diff\Outcome::successful());
+        $diffResult = Tests\Fixtures\DataProvider\DiffResultProvider::createSuccessful();
 
         $actual = Src\Exception\PatchFailureException::forConflictedDiff($diffResult);
 
