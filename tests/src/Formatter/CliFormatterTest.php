@@ -60,15 +60,15 @@ final class CliFormatterTest extends Framework\TestCase
         self::assertIsString($actual);
         self::assertStringContainsString(
             implode(PHP_EOL, [
-                '<fg=black;options=bold>--- a/composer.json</>',
-                '<fg=black;options=bold>+++ b/composer.json</>',
+                '<options=bold>--- a/composer.json</>',
+                '<options=bold>+++ b/composer.json</>',
             ]),
             $actual,
         );
         self::assertStringContainsString(
             implode(PHP_EOL, [
-                '<fg=black;options=bold>--- a/.gitignore</>',
-                '<fg=black;options=bold>+++ /dev/null</>',
+                '<options=bold>--- a/.gitignore</>',
+                '<options=bold>+++ /dev/null</>',
                 '<bg=red;fg=black> DELETED </>',
             ]),
             $actual,

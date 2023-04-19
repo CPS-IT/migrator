@@ -95,27 +95,27 @@ final class CliFormatter implements Formatter
             Diff\DiffMode::Added => [
                 $this->decorateText($this->decorator->decorateOriginalPath(null), options: ['bold']),
                 $this->decorateText($destPath, options: ['bold']),
-                $this->decorateText(' ADDED ', 'green'),
+                $this->decorateText(' ADDED ', 'green', 'black'),
             ],
             Diff\DiffMode::Copied => [
                 $this->decorateText($srcPath, options: ['bold']),
                 $this->decorateText($destPath, options: ['bold']),
-                $this->decorateText(' COPIED ', 'gray'),
+                $this->decorateText(' COPIED ', 'gray', 'black'),
             ],
             Diff\DiffMode::Deleted => [
                 $this->decorateText($srcPath, options: ['bold']),
                 $this->decorateText($this->decorator->decorateDestinationPath(null), options: ['bold']),
-                $this->decorateText(' DELETED ', 'red'),
+                $this->decorateText(' DELETED ', 'red', 'black'),
             ],
             Diff\DiffMode::Ignored => [
                 $this->decorateText($srcPath, options: ['bold']),
                 $this->decorateText($this->decorator->decorateDestinationPath(null), options: ['bold']),
-                $this->decorateText(' IGNORED ', 'gray'),
+                $this->decorateText(' IGNORED ', 'gray', 'black'),
             ],
             Diff\DiffMode::Renamed => [
                 $this->decorateText($srcPath, options: ['bold']),
                 $this->decorateText($destPath, options: ['bold']),
-                $this->decorateText(' RENAMED ', 'yellow'),
+                $this->decorateText(' RENAMED ', 'yellow', 'black'),
             ],
             default => [
                 $this->decorateText($srcPath, options: ['bold']),
@@ -160,7 +160,7 @@ final class CliFormatter implements Formatter
     private function decorateText(
         string $text,
         string $backgroundColor = null,
-        string $foregroundColor = 'black',
+        string $foregroundColor = null,
         array $options = [],
     ): string {
         $tagAttributes = array_filter(
