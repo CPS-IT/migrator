@@ -180,7 +180,7 @@ final class GitDiffer implements Differ
      */
     private function calculateDiffObjects(Status\Status $status): array
     {
-        $diff = $this->repository->commit('Add changed files')->getDiff('HEAD', 'HEAD~1');
+        $diff = $this->repository->commit('Add changed files', allowEmpty: true)->getDiff('HEAD', 'HEAD~1');
         $diffObjects = [];
 
         /** @var Status\StatusFile $statusFile */
