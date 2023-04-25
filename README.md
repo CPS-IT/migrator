@@ -52,6 +52,7 @@ Available options:
 
 ```php
 use CPSIT\Migrator\Diff;
+use CPSIT\Migrator\Formatter;
 use CPSIT\Migrator\Migrator;
 use CPSIT\Migrator\Resource;
 
@@ -67,26 +68,16 @@ $target = new Resource\Collector\DirectoryCollector('/path/to/current/revision/f
 // or just calculate a diff between the code bases
 $performMigrations = true;
 
-// Create differ and migrator
+// Create differ, migrator and formatter
 $differ = new Diff\Differ\GitDiffer();
 $migrator = new Migrator($differ, $performMigrations);
+$formatter = new Formatter\TextFormatter();
 
 // Migrate files in your base directory
 $diffResult = $migrator->migrate($source, $target, $base);
 
-// Print diff
-foreach ($diffResult->getDiffObjects() as $diffObject) {
-    echo '--- a/'.$diffObject->getOriginalPath().PHP_EOL;
-    echo '+++ b/'.$diffObject->getDestinationPath().PHP_EOL;
-
-    foreach ($diffObject->getChunks() as $diffChunk) {
-        echo $diffChunk->getHeaderLine().PHP_EOL;
-
-        foreach ($diffChunk as $diffChunkLine) {
-            echo $diffChunkLine.PHP_EOL;
-        }
-    }
-}
+// Format diff
+echo $formatter->format($diffResult);
 ```
 
 ## 🎢 Architecture
@@ -128,6 +119,19 @@ following implementations are currently available:
 
 - [`GitDiffer`](src/Diff/Differ/GitDiffer.php) uses the native Git binary to create
   diffs. This is done by the great library [`cypresslab/gitelephant`][1].
+
+### Formatter
+
+Formatters can be used to properly display a calculated
+[`Diff\DiffResult`](src/Diff/DiffResult.php). Each formatter implements
+[`Formatter\Formatter`](src/Formatter/Formatter.php). The following implementations
+are currently available:
+
+- [`CliFormatter`](src/Formatter/CliFormatter.php) is used on command line. It
+  displays the calculated diff with ANSI colors, targeting Symfony's console output.
+- [`TextFormatter`](src/Formatter/TextFormatter.php) can be used in other contexts
+  than command line, e.g. to properly display the calculated diff in case ANSI
+  colors are not available.
 
 ## 🧑‍💻 Contributing
 

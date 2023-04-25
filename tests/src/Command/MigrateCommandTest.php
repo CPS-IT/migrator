@@ -29,7 +29,6 @@ use PHPUnit\Framework;
 use Symfony\Component\Console;
 use Symfony\Component\Filesystem\Path;
 
-use function dirname;
 use function getcwd;
 use function implode;
 use function preg_match;
@@ -43,8 +42,9 @@ use function unlink;
  */
 final class MigrateCommandTest extends Framework\TestCase
 {
-    private Src\Tests\Fixtures\Classes\DummyDiffer $differ;
+    private Tests\Fixtures\Classes\DummyDiffer $differ;
     private Console\Tester\CommandTester $commandTester;
+    private Src\Diff\DiffResult $diffResult;
     private string $source;
     private string $target;
     private string $base;
@@ -53,9 +53,10 @@ final class MigrateCommandTest extends Framework\TestCase
     {
         $this->differ = new Tests\Fixtures\Classes\DummyDiffer();
         $this->commandTester = new Console\Tester\CommandTester(new Src\Command\MigrateCommand(new Src\Migrator($this->differ)));
-        $this->source = dirname(__DIR__).'/Fixtures/TestFiles/Source';
-        $this->target = dirname(__DIR__).'/Fixtures/TestFiles/Target';
-        $this->base = dirname(__DIR__).'/Fixtures/TestFiles/Base';
+        $this->diffResult = Tests\Fixtures\DataProvider\DiffResultProvider::createFromFixtures();
+        $this->source = Tests\Fixtures\DataProvider\DiffResultProvider::getFixtureSource();
+        $this->target = Tests\Fixtures\DataProvider\DiffResultProvider::getFixtureTarget();
+        $this->base = Tests\Fixtures\DataProvider\DiffResultProvider::getFixtureBase();
     }
 
     #[Framework\Attributes\Test]
@@ -118,7 +119,7 @@ final class MigrateCommandTest extends Framework\TestCase
     #[Framework\Attributes\Test]
     public function executeFailsOnFailedMigration(): void
     {
-        $this->differ->expectedResult = new Src\Diff\DiffResult([], 'foo', Src\Diff\Outcome::failed('something went wrong'));
+        $this->differ->expectedResult = Tests\Fixtures\DataProvider\DiffResultProvider::createFailed();
 
         $this->commandTester->execute([
             'base-directory' => $this->base,
@@ -137,7 +138,7 @@ final class MigrateCommandTest extends Framework\TestCase
     #[Framework\Attributes\Test]
     public function executeFailsOnPatchFailure(): void
     {
-        $diffResult = new Src\Diff\DiffResult([], 'foo', Src\Diff\Outcome::failed('something went wrong'));
+        $diffResult = Tests\Fixtures\DataProvider\DiffResultProvider::createFailed();
 
         $this->differ->expectedException = Src\Exception\PatchFailureException::forConflictedDiff($diffResult);
 
@@ -158,9 +159,7 @@ final class MigrateCommandTest extends Framework\TestCase
     #[Framework\Attributes\Test]
     public function executePrintsDiffObjects(): void
     {
-        $diffResult = $this->createDiffResult();
-
-        $this->differ->expectedResult = $diffResult;
+        $this->differ->expectedResult = $this->diffResult;
 
         $this->commandTester->execute([
             'base-directory' => $this->base,
@@ -193,7 +192,7 @@ final class MigrateCommandTest extends Framework\TestCase
     #[Framework\Attributes\Test]
     public function executePrintsPatchFileOnFailedMigration(): void
     {
-        $this->differ->expectedResult = new Src\Diff\DiffResult([], 'foo', Src\Diff\Outcome::failed('error'));
+        $this->differ->expectedResult = Tests\Fixtures\DataProvider\DiffResultProvider::createFailed();
 
         $this->commandTester->setInputs(['yes']);
 
@@ -211,18 +210,8 @@ final class MigrateCommandTest extends Framework\TestCase
         self::assertStringContainsString('Patch file written', $output);
         self::assertSame(1, preg_match('/Patch file written to (\\S+)/', $output, $matches));
         self::assertFileExists($matches[1]);
-        self::assertStringEqualsFile($matches[1], 'foo');
+        self::assertStringEqualsFile($matches[1], '###patch string###');
 
         unlink($matches[1]);
-    }
-
-    private function createDiffResult(): Src\Diff\DiffResult
-    {
-        $gitDiffer = new Src\Diff\Differ\GitDiffer();
-        $source = new Src\Resource\Collector\DirectoryCollector($this->source);
-        $target = new Src\Resource\Collector\DirectoryCollector($this->target);
-        $base = new Src\Resource\Collector\DirectoryCollector($this->base);
-
-        return $gitDiffer->generateDiff($source, $target, $base);
     }
 }

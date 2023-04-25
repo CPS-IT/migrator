@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace CPSIT\Migrator\Tests\Diff;
 
 use CPSIT\Migrator as Src;
+use CPSIT\Migrator\Tests;
 use PHPUnit\Framework;
 
 /**
@@ -34,40 +35,28 @@ use PHPUnit\Framework;
  */
 final class DiffResultTest extends Framework\TestCase
 {
-    /**
-     * @var list<Src\Diff\DiffObject>
-     */
-    private array $diffObjects;
     private Src\Diff\DiffResult $subject;
 
     protected function setUp(): void
     {
-        $this->diffObjects = [
-            new Src\Diff\DiffObject(Src\Diff\DiffMode::Added, 'foo', 'foo', []),
-            new Src\Diff\DiffObject(Src\Diff\DiffMode::Deleted, 'baz', 'baz', []),
-        ];
-        $this->subject = new Src\Diff\DiffResult(
-            $this->diffObjects,
-            'foo',
-            Src\Diff\Outcome::failed('error'),
-        );
+        $this->subject = Tests\Fixtures\DataProvider\DiffResultProvider::createFailed();
     }
 
     #[Framework\Attributes\Test]
     public function getDiffObjectsReturnsDiffObjects(): void
     {
-        self::assertSame($this->diffObjects, $this->subject->getDiffObjects());
+        self::assertCount(3, $this->subject->getDiffObjects());
     }
 
     #[Framework\Attributes\Test]
     public function getPatchReturnsPatch(): void
     {
-        self::assertSame('foo', $this->subject->getPatch());
+        self::assertSame('###patch string###', $this->subject->getPatch());
     }
 
     #[Framework\Attributes\Test]
     public function getOutcomeReturnsOutcome(): void
     {
-        self::assertEquals(Src\Diff\Outcome::failed('error'), $this->subject->getOutcome());
+        self::assertEquals(Src\Diff\Outcome::failed('something went wrong'), $this->subject->getOutcome());
     }
 }

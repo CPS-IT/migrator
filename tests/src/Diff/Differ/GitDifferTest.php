@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace CPSIT\Migrator\Tests\Diff\Differ;
 
 use CPSIT\Migrator as Src;
+use CPSIT\Migrator\Tests;
 use GitElephant\Repository;
 use PHPUnit\Framework;
 use ReflectionProperty;
@@ -89,7 +90,7 @@ final class GitDifferTest extends Framework\TestCase
     #[Framework\Attributes\Test]
     public function applyDiffThrowsExceptionIfDiffResultIsNotSuccessful(): void
     {
-        $diffResult = new Src\Diff\DiffResult([], 'foo', Src\Diff\Outcome::failed('error'));
+        $diffResult = Tests\Fixtures\DataProvider\DiffResultProvider::createFailed();
 
         $this->expectExceptionObject(Src\Exception\PatchFailureException::forConflictedDiff($diffResult));
 

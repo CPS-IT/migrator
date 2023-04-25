@@ -21,28 +21,22 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace CPSIT\Migrator\Tests\Helper;
+namespace CPSIT\Migrator\Tests\Fixtures\Classes;
 
-use CPSIT\Migrator as Src;
-use PHPUnit\Framework;
+use GitElephant\Objects;
 
 /**
- * FilesystemHelperTest.
+ * DummyDiffChunkLine.
  *
  * @author Elias Häußler <e.haeussler@familie-redlich.de>
  * @license GPL-3.0-or-later
+ *
+ * @internal
  */
-final class FilesystemHelperTest extends Framework\TestCase
+final class DummyDiffChunkLine extends Objects\Diff\DiffChunkLine
 {
-    #[Framework\Attributes\Test]
-    public function getNewTemporaryDirectoryReturnsUniqueTemporaryDirectory(): void
+    public function __construct(string $content)
     {
-        $tempDir = sys_get_temp_dir();
-
-        $actual = Src\Helper\FilesystemHelper::getNewTemporaryDirectory();
-
-        self::assertDirectoryDoesNotExist($actual);
-        self::assertNotEmpty($tempDir);
-        self::assertStringStartsWith($tempDir, $actual);
+        $this->content = $content;
     }
 }

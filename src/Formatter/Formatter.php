@@ -21,28 +21,17 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace CPSIT\Migrator\Tests\Helper;
+namespace CPSIT\Migrator\Formatter;
 
-use CPSIT\Migrator as Src;
-use PHPUnit\Framework;
+use CPSIT\Migrator\Diff;
 
 /**
- * FilesystemHelperTest.
+ * Formatter.
  *
  * @author Elias Häußler <e.haeussler@familie-redlich.de>
  * @license GPL-3.0-or-later
  */
-final class FilesystemHelperTest extends Framework\TestCase
+interface Formatter
 {
-    #[Framework\Attributes\Test]
-    public function getNewTemporaryDirectoryReturnsUniqueTemporaryDirectory(): void
-    {
-        $tempDir = sys_get_temp_dir();
-
-        $actual = Src\Helper\FilesystemHelper::getNewTemporaryDirectory();
-
-        self::assertDirectoryDoesNotExist($actual);
-        self::assertNotEmpty($tempDir);
-        self::assertStringStartsWith($tempDir, $actual);
-    }
+    public function format(Diff\DiffResult $diffResult): ?string;
 }
