@@ -18,7 +18,7 @@
     <logging>
         <junit outputFile=".build/coverage/junit.xml"/>
     </logging>
-    <source>
+    <source restrictDeprecations="true">
         <include>
             <directory>src</directory>
         </include>
