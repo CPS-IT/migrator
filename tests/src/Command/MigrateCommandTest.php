@@ -112,6 +112,7 @@ final class MigrateCommandTest extends Framework\TestCase
 
         self::assertSame(0, $this->commandTester->getStatusCode());
         self::assertFalse($this->differ->diffWasApplied);
+        self::assertNotEmpty($output);
         self::assertStringContainsString('Migration was successful.', $output);
         self::assertStringContainsString('Omit the --dry-run parameter to apply migrations.', $output);
     }
@@ -131,6 +132,7 @@ final class MigrateCommandTest extends Framework\TestCase
 
         self::assertSame(1, $this->commandTester->getStatusCode());
         self::assertFalse($this->differ->diffWasApplied);
+        self::assertNotEmpty($output);
         self::assertStringContainsString('Migration failed, no patches were applied.', $output);
         self::assertStringContainsString('something went wrong', $output);
     }
@@ -152,6 +154,7 @@ final class MigrateCommandTest extends Framework\TestCase
 
         self::assertSame(1, $this->commandTester->getStatusCode());
         self::assertFalse($this->differ->diffWasApplied);
+        self::assertNotEmpty($output);
         self::assertStringContainsString('Migration failed, no patches were applied.', $output);
         self::assertStringContainsString('something went wrong', $output);
     }
@@ -171,6 +174,7 @@ final class MigrateCommandTest extends Framework\TestCase
         $output = $this->commandTester->getDisplay();
 
         self::assertSame(0, $this->commandTester->getStatusCode());
+        self::assertNotEmpty($output);
         self::assertStringContainsString(
             implode(PHP_EOL, [
                 '--- a/composer.json',
@@ -206,9 +210,11 @@ final class MigrateCommandTest extends Framework\TestCase
         $output = $this->commandTester->getDisplay();
 
         self::assertSame(1, $this->commandTester->getStatusCode());
+        self::assertNotEmpty($output);
         self::assertStringContainsString('Do you want to save a patch file to the current working directory?', $output);
         self::assertStringContainsString('Patch file written', $output);
         self::assertSame(1, preg_match('/Patch file written to (\\S+)/', $output, $matches));
+        self::assertNotEmpty($matches[1]);
         self::assertFileExists($matches[1]);
         self::assertStringEqualsFile($matches[1], '###patch string###');
 
