@@ -41,6 +41,7 @@ final class FilesystemHelperTest extends Framework\TestCase
 
         $actual = Src\Helper\FilesystemHelper::getNewTemporaryDirectory();
 
+        self::assertNotEmpty($actual);
         self::assertDirectoryDoesNotExist($actual);
         self::assertNotEmpty($tempDir);
         self::assertStringStartsWith($tempDir, $actual);

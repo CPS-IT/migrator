@@ -58,6 +58,7 @@ final class TextFormatterTest extends Framework\TestCase
         $actual = $this->subject->format($this->diffResult);
 
         self::assertIsString($actual);
+        self::assertNotEmpty($actual);
         self::assertStringContainsString(
             implode(PHP_EOL, [
                 '--- a/composer.json',
@@ -80,6 +81,7 @@ final class TextFormatterTest extends Framework\TestCase
         $actual = $this->subject->format($this->diffResult);
 
         self::assertIsString($actual);
+        self::assertNotEmpty($actual);
         self::assertStringContainsString('@@ -4,6 +4,6 @@', $actual);
         self::assertStringContainsString('"phpunit/phpunit": "^9.5"', $actual);
         self::assertStringContainsString('"phpunit/phpunit": "^10.0"', $actual);
