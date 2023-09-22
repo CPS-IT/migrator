@@ -122,7 +122,6 @@ final class GitDifferTest extends Framework\TestCase
     private function getRepositoryPathFromReflection(): string
     {
         $reflectionProperty = new ReflectionProperty($this->subject, 'repository');
-        $reflectionProperty->setAccessible(true);
         $repository = $reflectionProperty->getValue($this->subject);
 
         self::assertInstanceOf(Repository::class, $repository);

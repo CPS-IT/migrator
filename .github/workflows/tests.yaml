@@ -18,7 +18,7 @@ jobs:
         php-version: ["8.1", "8.2"]
         dependencies: ["highest", "lowest"]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -44,7 +44,7 @@ jobs:
     name: Test coverage
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -71,7 +71,7 @@ jobs:
         working-directory: .build/coverage
         run: sed -i 's#/home/runner/work/migrator/migrator#${{ github.workspace }}#g' clover.xml
       - name: CodeClimate report
-        uses: paambaati/codeclimate-action@v4.0.0
+        uses: paambaati/codeclimate-action@v5.0.0
         if: env.CC_TEST_REPORTER_ID
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}

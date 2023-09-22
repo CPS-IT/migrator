@@ -58,6 +58,7 @@ final class CliFormatterTest extends Framework\TestCase
         $actual = $this->subject->format($this->diffResult);
 
         self::assertIsString($actual);
+        self::assertNotEmpty($actual);
         self::assertStringContainsString(
             implode(PHP_EOL, [
                 '<options=bold>--- a/composer.json</>',
@@ -81,6 +82,7 @@ final class CliFormatterTest extends Framework\TestCase
         $actual = $this->subject->format($this->diffResult);
 
         self::assertIsString($actual);
+        self::assertNotEmpty($actual);
         self::assertStringContainsString('<fg=cyan>@@ -4,6 +4,6 @@</>', $actual);
         self::assertMatchesRegularExpression('#<fg=red>-\s+"phpunit/phpunit": "\^9\.5"</>#', $actual);
         self::assertMatchesRegularExpression('#<fg=green>\+\s+"phpunit/phpunit": "\^10\.0"</>#', $actual);
