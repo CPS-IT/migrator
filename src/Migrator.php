@@ -34,7 +34,8 @@ final class Migrator
     public function __construct(
         private readonly Diff\Differ\Differ $differ = new Diff\Differ\GitDiffer(),
         private bool $performMigrations = true,
-    ) {}
+    ) {
+    }
 
     /**
      * @throws Exception\PatchFailureException

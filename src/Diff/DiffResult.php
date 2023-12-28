@@ -38,7 +38,8 @@ final class DiffResult
         private readonly array $diffObjects,
         private readonly string $patch,
         private readonly Outcome $outcome,
-    ) {}
+    ) {
+    }
 
     /**
      * @return list<DiffObject>
