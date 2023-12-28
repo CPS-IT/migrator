@@ -34,7 +34,8 @@ final class Outcome
     private function __construct(
         private readonly bool $successful,
         private readonly ?string $message = null,
-    ) {}
+    ) {
+    }
 
     public static function successful(): self
     {

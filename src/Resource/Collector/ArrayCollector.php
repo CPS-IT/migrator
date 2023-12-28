@@ -39,7 +39,8 @@ final class ArrayCollector implements CollectorInterface
      */
     public function __construct(
         private readonly array $collection,
-    ) {}
+    ) {
+    }
 
     public function collect(): array
     {
