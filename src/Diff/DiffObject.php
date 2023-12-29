@@ -41,8 +41,7 @@ final class DiffObject
         private readonly ?string $originalPath,
         private readonly ?string $destinationPath,
         private readonly array $chunks,
-    ) {
-    }
+    ) {}
 
     public function getMode(): DiffMode
     {
