@@ -159,8 +159,8 @@ final class CliFormatter implements Formatter
      */
     private function decorateText(
         string $text,
-        string $backgroundColor = null,
-        string $foregroundColor = null,
+        ?string $backgroundColor = null,
+        ?string $foregroundColor = null,
         array $options = [],
     ): string {
         $tagAttributes = array_filter(

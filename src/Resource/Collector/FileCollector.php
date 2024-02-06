@@ -46,7 +46,7 @@ final class FileCollector implements CollectorInterface
     /**
      * @throws Exception\InvalidResourceException
      */
-    public function __construct(string $file, string $baseDirectory = null)
+    public function __construct(string $file, ?string $baseDirectory = null)
     {
         if (!file_exists($file)) {
             throw Exception\InvalidResourceException::create($file);
