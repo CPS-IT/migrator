@@ -27,7 +27,6 @@ use CPSIT\Migrator\Diff;
 use Generator;
 use GitElephant\Objects;
 
-use function array_filter;
 use function http_build_query;
 use function implode;
 use function sprintf;
@@ -163,13 +162,18 @@ final class CliFormatter implements Formatter
         ?string $foregroundColor = null,
         array $options = [],
     ): string {
-        $tagAttributes = array_filter(
-            [
-                'bg' => $backgroundColor,
-                'fg' => $foregroundColor,
-                'options' => implode(',', $options),
-            ],
-        );
+        $tagAttributes = [];
+
+        if (null !== $backgroundColor) {
+            $tagAttributes['bg'] = $backgroundColor;
+        }
+        if (null !== $foregroundColor) {
+            $tagAttributes['fg'] = $foregroundColor;
+        }
+        if ([] !== $options) {
+            $tagAttributes['options'] = implode(',', $options);
+        }
+
         $tag = http_build_query($tagAttributes, '', ';');
 
         return sprintf('<%s>%s</>', $tag, $text);
