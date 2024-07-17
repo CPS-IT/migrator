@@ -28,6 +28,7 @@ $config->getFinder()
     ->name(['*.php', 'migrator'])
     ->in(__DIR__)
     ->ignoreVCSIgnored(true)
+    ->ignoreDotFiles(false)
 ;
 
 $ruleset = new \CPSIT\PhpCsFixerConfig\Rule\DefaultRuleset();
