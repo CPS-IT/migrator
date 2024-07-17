@@ -22,6 +22,7 @@ declare(strict_types=1);
  */
 
 $config = new \PhpCsFixer\Config();
+$config->setParallelConfig(\PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect());
 $config->getFinder()
     ->files()
     ->name(['*.php', 'migrator'])

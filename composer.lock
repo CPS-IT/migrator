@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "30b5a92399fcc8d4311f41aead5ea3f6",
+    "content-hash": "2ec76e278868f43c4d1543656683f25a",
     "packages": [
         {
             "name": "cypresslab/gitelephant",

@@ -22,6 +22,7 @@
 		"armin/editorconfig-cli": "^1.6 || ^2.0",
 		"cpsit/php-cs-fixer-config": "^1.1",
 		"ergebnis/composer-normalize": "^2.30",
+		"friendsofphp/php-cs-fixer": "^3.57",
 		"phpstan/extension-installer": "^1.2",
 		"phpstan/phpstan": "^1.10",
 		"phpstan/phpstan-phpunit": "^1.3",
