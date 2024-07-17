@@ -21,15 +21,17 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-$config = new \PhpCsFixer\Config();
+$config = new PhpCsFixer\Config();
+$config->setParallelConfig(PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect());
 $config->getFinder()
     ->files()
     ->name(['*.php', 'migrator'])
     ->in(__DIR__)
     ->ignoreVCSIgnored(true)
+    ->ignoreDotFiles(false)
 ;
 
-$ruleset = new \CPSIT\PhpCsFixerConfig\Rule\DefaultRuleset();
+$ruleset = new CPSIT\PhpCsFixerConfig\Rule\DefaultRuleset();
 $ruleset->apply($config);
 
 return $config;
