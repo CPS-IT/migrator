@@ -228,9 +228,6 @@ final class GitDiffer implements Differ
         return $repository;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function __destruct()
     {
         try {

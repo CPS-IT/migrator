@@ -119,6 +119,19 @@ final class GitDifferTest extends Framework\TestCase
         }
     }
 
+    #[Framework\Attributes\Test]
+    public function destructorRemovesRepository(): void
+    {
+        $repositoryPath = $this->getRepositoryPathFromReflection();
+
+        self::assertDirectoryExists($repositoryPath);
+
+        // Trigger __destruct() on subject
+        unset($this->subject);
+
+        self::assertDirectoryDoesNotExist($repositoryPath);
+    }
+
     private function getRepositoryPathFromReflection(): string
     {
         $reflectionProperty = new ReflectionProperty($this->subject, 'repository');
