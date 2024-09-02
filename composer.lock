@@ -254,16 +254,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v6.4.10",
+            "version": "v6.4.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "504974cbe43d05f83b201d6498c206f16fc0cdbc"
+                "reference": "42686880adaacdad1835ee8fc2a9ec5b7bd63998"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/504974cbe43d05f83b201d6498c206f16fc0cdbc",
-                "reference": "504974cbe43d05f83b201d6498c206f16fc0cdbc",
+                "url": "https://api.github.com/repos/symfony/console/zipball/42686880adaacdad1835ee8fc2a9ec5b7bd63998",
+                "reference": "42686880adaacdad1835ee8fc2a9ec5b7bd63998",
                 "shasum": ""
             },
             "require": {
@@ -328,7 +328,7 @@
                 "terminal"
             ],
             "support": {
-                "source": "https://github.com/symfony/console/tree/v6.4.10"
+                "source": "https://github.com/symfony/console/tree/v6.4.11"
             },
             "funding": [
                 {
@@ -344,7 +344,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-07-26T12:30:32+00:00"
+            "time": "2024-08-15T22:48:29+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -481,16 +481,16 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v6.4.10",
+            "version": "v6.4.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "af29198d87112bebdd397bd7735fbd115997824c"
+                "reference": "d7eb6daf8cd7e9ac4976e9576b32042ef7253453"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/af29198d87112bebdd397bd7735fbd115997824c",
-                "reference": "af29198d87112bebdd397bd7735fbd115997824c",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/d7eb6daf8cd7e9ac4976e9576b32042ef7253453",
+                "reference": "d7eb6daf8cd7e9ac4976e9576b32042ef7253453",
                 "shasum": ""
             },
             "require": {
@@ -525,7 +525,7 @@
             "description": "Finds files and directories via an intuitive fluent interface",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/finder/tree/v6.4.10"
+                "source": "https://github.com/symfony/finder/tree/v6.4.11"
             },
             "funding": [
                 {
@@ -541,7 +541,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-07-24T07:06:38+00:00"
+            "time": "2024-08-13T14:27:37+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -1007,16 +1007,16 @@
         },
         {
             "name": "symfony/string",
-            "version": "v6.4.10",
+            "version": "v6.4.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "ccf9b30251719567bfd46494138327522b9a9446"
+                "reference": "5bc3eb632cf9c8dbfd6529d89be9950d1518883b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/string/zipball/ccf9b30251719567bfd46494138327522b9a9446",
-                "reference": "ccf9b30251719567bfd46494138327522b9a9446",
+                "url": "https://api.github.com/repos/symfony/string/zipball/5bc3eb632cf9c8dbfd6529d89be9950d1518883b",
+                "reference": "5bc3eb632cf9c8dbfd6529d89be9950d1518883b",
                 "shasum": ""
             },
             "require": {
@@ -1073,7 +1073,7 @@
                 "utf8"
             ],
             "support": {
-                "source": "https://github.com/symfony/string/tree/v6.4.10"
+                "source": "https://github.com/symfony/string/tree/v6.4.11"
             },
             "funding": [
                 {
@@ -1089,7 +1089,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-07-22T10:21:14+00:00"
+            "time": "2024-08-12T09:55:28+00:00"
         }
     ],
     "packages-dev": [
@@ -4989,16 +4989,16 @@
         },
         {
             "name": "symfony/mime",
-            "version": "v6.4.9",
+            "version": "v6.4.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mime.git",
-                "reference": "7d048964877324debdcb4e0549becfa064a20d43"
+                "reference": "dba5d5f6073baf7a3576b580cc4a208b4ca00553"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mime/zipball/7d048964877324debdcb4e0549becfa064a20d43",
-                "reference": "7d048964877324debdcb4e0549becfa064a20d43",
+                "url": "https://api.github.com/repos/symfony/mime/zipball/dba5d5f6073baf7a3576b580cc4a208b4ca00553",
+                "reference": "dba5d5f6073baf7a3576b580cc4a208b4ca00553",
                 "shasum": ""
             },
             "require": {
@@ -5054,7 +5054,7 @@
                 "mime-type"
             ],
             "support": {
-                "source": "https://github.com/symfony/mime/tree/v6.4.9"
+                "source": "https://github.com/symfony/mime/tree/v6.4.11"
             },
             "funding": [
                 {
@@ -5070,7 +5070,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-06-28T09:49:33+00:00"
+            "time": "2024-08-13T12:15:02+00:00"
         },
         {
             "name": "symfony/options-resolver",
