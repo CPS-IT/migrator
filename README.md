@@ -12,9 +12,9 @@
 [![Total Downloads](http://poser.pugx.org/cpsit/migrator/downloads)](https://packagist.org/packages/cpsit/migrator)
 [![License](http://poser.pugx.org/cpsit/migrator/license)](LICENSE)
 
-:package:&nbsp;[Packagist](https://packagist.org/packages/cpsit/migrator) |
-:floppy_disk:&nbsp;[Repository](https://github.com/CPS-IT/migrator) |
-:bug:&nbsp;[Issue tracker](https://github.com/CPS-IT/migrator/issues)
+📦&nbsp;[Packagist](https://packagist.org/packages/cpsit/migrator) |
+💾&nbsp;[Repository](https://github.com/CPS-IT/migrator) |
+🐛&nbsp;[Issue tracker](https://github.com/CPS-IT/migrator/issues)
 
 </div>
 
