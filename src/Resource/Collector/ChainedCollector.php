@@ -40,13 +40,11 @@ final class ChainedCollector implements CollectorInterface
 {
     /**
      * @param non-empty-list<CollectorInterface> $collectors
-     *
-     * @throws Exception\InvalidCollectorException
      */
     public function __construct(
         private readonly array $collectors,
     ) {
-        /* @phpstan-ignore-next-line */
+        /* @phpstan-ignore identical.alwaysFalse */
         if ([] === $this->collectors) {
             throw Exception\InvalidCollectorException::forEmptyCollectorChain();
         }

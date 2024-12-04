@@ -74,8 +74,11 @@ final class CliFormatter implements Formatter
             yield from $this->formatDiffObjectHeader($diffObject);
 
             foreach ($diffObject->getChunks() as $chunks) {
+                /** @var list<Objects\Diff\DiffChunkLine> $chunkLines */
+                $chunkLines = $chunks->getLines();
+
                 yield $this->decorateText($chunks->getHeaderLine(), foregroundColor: 'cyan');
-                yield from $this->formatDiffChunkLines($chunks->getLines());
+                yield from $this->formatDiffChunkLines($chunkLines);
             }
 
             yield '';
@@ -124,7 +127,7 @@ final class CliFormatter implements Formatter
     }
 
     /**
-     * @param array<Objects\Diff\DiffChunkLine> $chunkLines
+     * @param list<Objects\Diff\DiffChunkLine> $chunkLines
      *
      * @return Generator<string>
      */

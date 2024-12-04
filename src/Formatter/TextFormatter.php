@@ -72,8 +72,11 @@ final class TextFormatter implements Formatter
             yield from $this->formatDiffObjectHeader($diffObject);
 
             foreach ($diffObject->getChunks() as $chunks) {
+                /** @var list<Objects\Diff\DiffChunkLine> $chunkLines */
+                $chunkLines = $chunks->getLines();
+
                 yield $chunks->getHeaderLine();
-                yield from $this->formatDiffChunkLines($chunks->getLines());
+                yield from $this->formatDiffChunkLines($chunkLines);
             }
 
             yield '';
@@ -106,7 +109,7 @@ final class TextFormatter implements Formatter
     }
 
     /**
-     * @param array<Objects\Diff\DiffChunkLine> $chunkLines
+     * @param list<Objects\Diff\DiffChunkLine> $chunkLines
      *
      * @return Generator<string>
      */
