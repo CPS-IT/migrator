@@ -34,7 +34,7 @@ use GitElephant\Objects;
 final class DiffObject
 {
     /**
-     * @param array<Objects\Diff\DiffChunk> $chunks
+     * @param list<Objects\Diff\DiffChunk> $chunks
      */
     public function __construct(
         private readonly DiffMode $mode,
@@ -59,7 +59,7 @@ final class DiffObject
     }
 
     /**
-     * @return array<Objects\Diff\DiffChunk>
+     * @return list<Objects\Diff\DiffChunk>
      */
     public function getChunks(): array
     {

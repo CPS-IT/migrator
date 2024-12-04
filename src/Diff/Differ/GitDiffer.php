@@ -196,11 +196,13 @@ final class GitDiffer implements Differ
             /** @var Objects\Diff\DiffObject $diffObject */
             foreach ($diff as $diffObject) {
                 if ($destinationPath === $diffObject->getDestinationPath()) {
+                    /** @var list<Objects\Diff\DiffChunk> $chunks */
+                    $chunks = $diffObject->getChunks();
                     $diffObjects[] = new Diff\DiffObject(
                         $diffMode,
                         $diffObject->getOriginalPath(),
                         $diffObject->getDestinationPath(),
-                        $diffObject->getChunks(),
+                        $chunks,
                     );
                 }
             }

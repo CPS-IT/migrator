@@ -51,7 +51,7 @@ final class ChainedCollectorTest extends Framework\TestCase
     {
         $this->expectExceptionObject(Src\Exception\InvalidCollectorException::forEmptyCollectorChain());
 
-        /* @phpstan-ignore-next-line */
+        /* @phpstan-ignore argument.type, new.resultUnused */
         new Src\Resource\Collector\ChainedCollector([]);
     }
 
