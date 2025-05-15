@@ -91,6 +91,7 @@ final class DiffDecoratorTest extends Framework\TestCase
             '-foo',
         ];
         yield 'unchanged' => [
+            /* @phpstan-ignore method.internal */
             new Objects\Diff\DiffChunkLineUnchanged(123, 123, 'foo'),
             ' foo',
         ];
