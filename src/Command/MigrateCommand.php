@@ -177,9 +177,9 @@ final class MigrateCommand extends Console\Command\Command
     }
 
     /**
-     * @throws Exception\InvalidResourceException
-     *
      * @phpstan-return ($allowFiles is true ? Resource\Collector\CollectorInterface : Resource\Collector\DirectoryCollector)
+     *
+     * @throws Exception\InvalidResourceException
      */
     private function createCollector(string $resource, bool $allowFiles = true): Resource\Collector\CollectorInterface
     {
