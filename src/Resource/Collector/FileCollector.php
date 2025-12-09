@@ -38,10 +38,10 @@ use function file_exists;
  * @author Elias Häußler <e.haeussler@familie-redlich.de>
  * @license GPL-3.0-or-later
  */
-final class FileCollector implements CollectorInterface
+final readonly class FileCollector implements CollectorInterface
 {
-    private readonly string $baseDirectory;
-    private readonly Finder\SplFileInfo $file;
+    private string $baseDirectory;
+    private Finder\SplFileInfo $file;
 
     /**
      * @throws Exception\InvalidResourceException

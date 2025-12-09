@@ -35,9 +35,9 @@ use function implode;
  * @author Elias Häußler <e.haeussler@familie-redlich.de>
  * @license GPL-3.0-or-later
  */
-final class TextFormatter implements Formatter
+final readonly class TextFormatter implements Formatter
 {
-    private readonly Decorator\DiffDecorator $decorator;
+    private Decorator\DiffDecorator $decorator;
 
     public function __construct()
     {

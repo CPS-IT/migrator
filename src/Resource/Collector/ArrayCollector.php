@@ -32,13 +32,13 @@ use Traversable;
  * @author Elias Häußler <e.haeussler@familie-redlich.de>
  * @license GPL-3.0-or-later
  */
-final class ArrayCollector implements CollectorInterface
+final readonly class ArrayCollector implements CollectorInterface
 {
     /**
      * @param array<string, string> $collection
      */
     public function __construct(
-        private readonly array $collection,
+        private array $collection,
     ) {}
 
     public function collect(): array

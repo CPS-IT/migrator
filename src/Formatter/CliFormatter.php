@@ -37,9 +37,9 @@ use function sprintf;
  * @author Elias Häußler <e.haeussler@familie-redlich.de>
  * @license GPL-3.0-or-later
  */
-final class CliFormatter implements Formatter
+final readonly class CliFormatter implements Formatter
 {
-    private readonly Decorator\DiffDecorator $decorator;
+    private Decorator\DiffDecorator $decorator;
 
     public function __construct()
     {
