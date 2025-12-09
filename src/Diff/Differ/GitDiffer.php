@@ -185,7 +185,7 @@ final readonly class GitDiffer implements Differ
 
         /** @var Status\StatusFile $statusFile */
         foreach ($status->all() as $statusFile) {
-            $diffMode = self::DIFF_MODES[$statusFile->getWorkingTreeStatus()] ?? self::DIFF_MODES[$statusFile->getIndexStatus()] ?? null;
+            $diffMode = self::DIFF_MODES[$statusFile->getWorkingTreeStatus() ?? ''] ?? self::DIFF_MODES[$statusFile->getIndexStatus() ?? ''] ?? null;
             $destinationPath = $statusFile->getRenamed() ?? $statusFile->getName();
 
             // Skip irrelevant statuses
