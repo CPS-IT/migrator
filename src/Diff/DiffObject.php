@@ -31,16 +31,16 @@ use GitElephant\Objects;
  * @author Elias Häußler <e.haeussler@familie-redlich.de>
  * @license GPL-3.0-or-later
  */
-final class DiffObject
+final readonly class DiffObject
 {
     /**
      * @param list<Objects\Diff\DiffChunk> $chunks
      */
     public function __construct(
-        private readonly DiffMode $mode,
-        private readonly ?string $originalPath,
-        private readonly ?string $destinationPath,
-        private readonly array $chunks,
+        private DiffMode $mode,
+        private ?string $originalPath,
+        private ?string $destinationPath,
+        private array $chunks,
     ) {}
 
     public function getMode(): DiffMode

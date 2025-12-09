@@ -29,15 +29,15 @@ namespace CPSIT\Migrator\Diff;
  * @author Elias Häußler <e.haeussler@familie-redlich.de>
  * @license GPL-3.0-or-later
  */
-final class DiffResult
+final readonly class DiffResult
 {
     /**
      * @param list<DiffObject> $diffObjects
      */
     public function __construct(
-        private readonly array $diffObjects,
-        private readonly string $patch,
-        private readonly Outcome $outcome,
+        private array $diffObjects,
+        private string $patch,
+        private Outcome $outcome,
     ) {}
 
     /**

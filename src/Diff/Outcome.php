@@ -29,11 +29,11 @@ namespace CPSIT\Migrator\Diff;
  * @author Elias Häußler <e.haeussler@familie-redlich.de>
  * @license GPL-3.0-or-later
  */
-final class Outcome
+final readonly class Outcome
 {
     private function __construct(
-        private readonly bool $successful,
-        private readonly ?string $message = null,
+        private bool $successful,
+        private ?string $message = null,
     ) {}
 
     public static function successful(): self

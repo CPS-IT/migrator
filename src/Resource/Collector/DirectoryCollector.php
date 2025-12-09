@@ -37,13 +37,13 @@ use function is_dir;
  * @author Elias Häußler <e.haeussler@familie-redlich.de>
  * @license GPL-3.0-or-later
  */
-final class DirectoryCollector implements CollectorInterface
+final readonly class DirectoryCollector implements CollectorInterface
 {
     /**
      * @throws Exception\InvalidResourceException
      */
     public function __construct(
-        private readonly string $baseDirectory,
+        private string $baseDirectory,
     ) {
         if (!file_exists($this->baseDirectory) || !is_dir($this->baseDirectory)) {
             throw Exception\InvalidResourceException::create($this->baseDirectory);

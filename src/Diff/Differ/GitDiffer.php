@@ -41,7 +41,7 @@ use function explode;
  * @author Elias Häußler <e.haeussler@familie-redlich.de>
  * @license GPL-3.0-or-later
  */
-final class GitDiffer implements Differ
+final readonly class GitDiffer implements Differ
 {
     private const MAIN_BRANCH = 'main';
     private const BASE_BRANCH = 'base';
@@ -57,8 +57,8 @@ final class GitDiffer implements Differ
         Status\StatusFile::UPDATED_BUT_UNMERGED => Diff\DiffMode::Conflicted,
     ];
 
-    private readonly Filesystem\Filesystem $filesystem;
-    private readonly Repository $repository;
+    private Filesystem\Filesystem $filesystem;
+    private Repository $repository;
 
     public function __construct()
     {

@@ -36,13 +36,13 @@ use function array_merge;
  * @author Elias Häußler <e.haeussler@familie-redlich.de>
  * @license GPL-3.0-or-later
  */
-final class ChainedCollector implements CollectorInterface
+final readonly class ChainedCollector implements CollectorInterface
 {
     /**
      * @param non-empty-list<CollectorInterface> $collectors
      */
     public function __construct(
-        private readonly array $collectors,
+        private array $collectors,
     ) {
         /* @phpstan-ignore identical.alwaysFalse */
         if ([] === $this->collectors) {
