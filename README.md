@@ -5,7 +5,6 @@
 # Migrator
 
 [![Coverage](https://img.shields.io/coverallsCoverage/github/CPS-IT/migrator?logo=coveralls)](https://coveralls.io/github/CPS-IT/migrator)
-[![Maintainability](https://api.codeclimate.com/v1/badges/cd03944fa762cd0a4eea/maintainability)](https://codeclimate.com/github/CPS-IT/migrator/maintainability)
 [![Tests](https://github.com/CPS-IT/migrator/actions/workflows/tests.yaml/badge.svg)](https://github.com/CPS-IT/migrator/actions/workflows/tests.yaml)
 [![CGL](https://github.com/CPS-IT/migrator/actions/workflows/cgl.yaml/badge.svg)](https://github.com/CPS-IT/migrator/actions/workflows/cgl.yaml)
 [![Latest Stable Version](http://poser.pugx.org/cpsit/migrator/v)](https://packagist.org/packages/cpsit/migrator)
